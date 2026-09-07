@@ -1,157 +1,83 @@
-# CifraturaDecifrSimmetrica
+# Cifratura e Decifratura Simmetrica
 
-![Java](https://img.shields.io/badge/Java-Console%20Application-blue)
-![Stato](https://img.shields.io/badge/Stato-Progetto%20didattico-orange)
-![Ambito](https://img.shields.io/badge/Ambito-Crittografia-lightgrey)
-![Algoritmo](https://img.shields.io/badge/Tipo-Cifratura%20simmetrica-green)
+A Java 17 command-line application for encrypting and decrypting text with DES in ECB or CBC mode.
 
-**CifraturaDecifrSimmetrica** è un progetto Java didattico dedicato alla simulazione di processi di **cifratura e decifratura simmetrica**.
+![Java 17](https://img.shields.io/badge/Java-17-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Command-line application](https://img.shields.io/badge/Type-Command--line%20application-4C566A?style=flat-square)
+![Academic Project](https://img.shields.io/badge/Category-Academic%20Project-5E81AC?style=flat-square)
+![Year | 2024](https://img.shields.io/badge/Year%20%7C%202024-8FBCBB?style=flat-square)
 
-L’applicazione mostra il funzionamento della crittografia simmetrica utilizzando una chiave condivisa per trasformare un testo in formato cifrato e ripristinarlo successivamente in chiaro.
+> [!NOTE]
+> This repository contains an academic project originally developed during earlier programming studies. It is preserved as a record of the technical knowledge, design decisions and development experience acquired at the time.
 
----
+## Overview
 
-## Indice
+The application presents an interactive console menu for choosing encryption or decryption, selecting the DES/ECB/PKCS5Padding or DES/CBC/PKCS5Padding transformation, and entering a text message. Ciphertext is displayed as Base64.
 
-- [Descrizione](#descrizione)
-- [Funzionalità](#funzionalità)
-- [Obiettivo didattico](#obiettivo-didattico)
-- [Tecnologie utilizzate](#tecnologie-utilizzate)
-- [Struttura del progetto](#struttura-del-progetto)
-- [Flusso logico](#flusso-logico)
-- [Esecuzione del progetto](#esecuzione-del-progetto)
-- [Note sul progetto](#note-sul-progetto)
-- [Possibili miglioramenti futuri](#possibili-miglioramenti-futuri)
-- [Autore](#autore)
-- [Licenza](#licenza)
+The implementation is an educational example rather than a production security tool. DES is an obsolete encryption standard, and the generated key and CBC initialization vector remain in memory for the current process instead of being persisted or exchanged.
 
----
+## Features
 
-## Descrizione
+- Encrypts text with DES in ECB mode.
+- Encrypts text with DES in CBC mode using a randomly generated initialization vector.
+- Decrypts ECB and CBC ciphertext during the same application run.
+- Encodes encrypted bytes as Base64 for console display and accepts Base64 ciphertext as input.
+- Validates menu selections and supports cancelling text input by pressing Enter.
 
-Il progetto implementa un meccanismo di crittografia simmetrica in Java con l’obiettivo di:
+## Technology stack
 
-- cifrare un messaggio in input;
-- decifrare il messaggio cifrato con la stessa chiave;
-- evidenziare il ciclo completo **testo in chiaro → testo cifrato → testo decifrato**.
+- **Language:** Java
+- **Runtime/API:** Java Cryptography Architecture (`javax.crypto`, `java.security`)
+- **Interface:** Interactive standard-console input and output
+- **Build configuration:** Eclipse project metadata targeting Java 17
+- **External dependencies:** None declared in the repository
 
-È un progetto orientato all’apprendimento dei concetti base di sicurezza informatica e manipolazione delle stringhe.
-
----
-
-## Funzionalità
-
-L’applicazione permette di:
-
-- inserire un testo da cifrare;
-- inserire/impostare una chiave simmetrica;
-- applicare una trasformazione di cifratura;
-- visualizzare il testo cifrato;
-- applicare la decifratura con la stessa chiave;
-- verificare il ripristino del testo originale.
-
----
-
-## Obiettivo didattico
-
-Il progetto è pensato per comprendere in modo pratico:
-
-- differenza tra testo in chiaro e testo cifrato;
-- ruolo della **chiave condivisa** nella cifratura simmetrica;
-- importanza della corretta gestione della chiave;
-- logica di inversione tra cifratura e decifratura.
-
----
-
-## Tecnologie utilizzate
-
-- **Java** (100% del repository)
-- Programmazione orientata agli oggetti (se applicata nella struttura)
-- Applicazione da console (tipicamente in progetti didattici di questo tipo)
-
----
-
-## Struttura del progetto
-
-> Struttura indicativa (adattabile ai file reali presenti nel repository):
+## Project structure
 
 ```text
-CifraturaDecifrSimmetrica/
-│
-├── Main.java
-├── Cifratura.java
-├── Decifratura.java
-├── Utility.java
-└── README.md
+CifrDecifSimmetrica/
+├── src/
+│   └── it/volta/ts/ulivisamuel/cifrdecifrulivi/
+│       ├── Main.java                 # Application entry point
+│       ├── Console.java              # Interactive menu and input flow
+│       ├── biz/                      # ECB and CBC cipher implementations
+│       ├── events/                   # Console notification types
+│       └── util/                     # Input-validation helpers
+├── .classpath                        # Eclipse Java 17 classpath
+└── .project                          # Eclipse Java project definition
 ```
 
-Se vuoi, posso generarti una seconda versione del README con la **struttura file reale al 100%** leggendo direttamente il repository.
+## Getting started
 
----
+### Prerequisites
 
-## Flusso logico
+- A Java Development Kit (JDK) 17.
 
-1. L’utente inserisce un messaggio.
-2. L’utente fornisce la chiave simmetrica.
-3. Il sistema cifra il testo.
-4. Il sistema mostra l’output cifrato.
-5. Il sistema decifra usando la stessa chiave.
-6. Il sistema mostra il testo decifrato.
+The repository explicitly configures Eclipse compilation for Java 17. No package manager or third-party dependency installation is required.
 
----
+### Compile
 
-## Esecuzione del progetto
-
-### Requisiti
-
-- JDK installato (consigliato Java 8+)
-
-### Compilazione
-
-Dalla directory principale:
+From the repository root:
 
 ```bash
-javac -d out $(find . -name "*.java")
+mkdir -p /tmp/cifrdecif-simmetrica-bin
+javac -d /tmp/cifrdecif-simmetrica-bin $(find CifrDecifSimmetrica/src -type f -name '*.java')
 ```
 
-### Avvio
+### Run
+
+After compiling:
 
 ```bash
-java -cp out Main
+java -cp /tmp/cifrdecif-simmetrica-bin it.volta.ts.ulivisamuel.cifrdecifrulivi.Main
 ```
 
-> Se il package della classe principale è definito, usare il nome completo (es. `it.nome.progetto.Main`).
+Use the displayed menus to choose encryption or decryption, then select ECB or CBC and enter a message. Decryption is available only after the corresponding cipher instance has generated its key, so ciphertext produced in a separate process cannot be decrypted by this application.
 
----
+## Testing
 
-## Note sul progetto
+No automated test suite is included in the repository. A successful `javac` compilation is the available build validation path.
 
-Questo repository contiene un progetto a scopo didattico, utile per consolidare:
+## License
 
-- gestione input/output;
-- trasformazioni su stringhe/caratteri;
-- modellazione di logiche reversibili (encrypt/decrypt);
-- basi di crittografia simmetrica.
-
----
-
-## Possibili miglioramenti futuri
-
-- supporto a più algoritmi (es. Cesare, XOR, AES tramite librerie);
-- gestione errori e validazioni avanzate;
-- interfaccia grafica;
-- test automatici (JUnit);
-- esportazione risultati su file;
-- modalità batch per cifrare più testi.
-
----
-
-## Autore
-
-Progetto realizzato da **Samuel Ulivi**.
-
----
-
-## Licenza
-
-Questo progetto è stato sviluppato per scopi didattici.
+No license file or explicit license statement is included in the repository. Licensing status requires human review.
