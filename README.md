@@ -1,4 +1,4 @@
-# Cifratura e Decifratura Simmetrica
+# Symmetric Encryption and Decryption   
 
 A Java 17 command-line application for encrypting and decrypting text with DES in ECB or CBC mode.
 
@@ -80,4 +80,4 @@ No automated test suite is included in the repository. A successful `javac` comp
 
 ## License
 
-No license file or explicit license statement is included in the repository. Licensing status requires human review.
+This project is shared for educational and portfolio purposes. All rights reserved unless otherwise stated.
